@@ -1,0 +1,39 @@
+name: macOS
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test and build (Apple Silicon)
+    runs-on: macos-15
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Run tests
+        run: swift test
+
+      - name: Build app bundle
+        run: ./scripts/build-app.sh
+
+      - name: Package app
+        run: |
+          lipo -verify_arch arm64 dist/LinkPilot.app/Contents/MacOS/LinkPilot
+          ditto -c -k --sequesterRsrc --keepParent dist/LinkPilot.app dist/LinkPilot-macos-arm64.zip
+
+      - name: Upload build
+        uses: actions/upload-artifact@v7
+        with:
+          name: LinkPilot-macos-arm64
+          path: dist/LinkPilot-macos-arm64.zip
+          if-no-files-found: error

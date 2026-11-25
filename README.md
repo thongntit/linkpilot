@@ -2,6 +2,10 @@
 
 Ứng dụng menu bar cho macOS. LinkPilot nhận link từ các ứng dụng, tự mở theo quy tắc hoặc cho bạn chọn browser và profile.
 
+## Tải bản build từ GitHub
+
+Workflow [macOS](https://github.com/thongntit/linkpilot/actions/workflows/macos.yml) chạy test và build khi có pull request, khi push lên `main`, hoặc khi chạy thủ công. Đăng nhập GitHub, mở lần chạy thành công và tải artifact **LinkPilot-macos-arm64**. Giải nén `LinkPilot-macos-arm64.zip` để lấy `LinkPilot.app`. Bản CI dành cho Apple Silicon, ký ad hoc và chưa notarize.
+
 ## Chạy trên máy
 
 Cần macOS 14 trở lên và bộ công cụ Swift 6.0 trở lên.

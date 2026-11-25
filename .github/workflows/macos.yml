@@ -28,7 +28,7 @@ jobs:
 
       - name: Package app
         run: |
-          lipo -verify_arch arm64 dist/LinkPilot.app/Contents/MacOS/LinkPilot
+          lipo dist/LinkPilot.app/Contents/MacOS/LinkPilot -verify_arch arm64
           ditto -c -k --sequesterRsrc --keepParent dist/LinkPilot.app dist/LinkPilot-macos-arm64.zip
 
       - name: Upload build
